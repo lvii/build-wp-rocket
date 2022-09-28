@@ -28,7 +28,6 @@ jobs:
 
       - name: Get latest release
         run: |
-          # echo "UPSTREAM_RELEASE=$(curl -f -sSL "https://api.github.com/repos/wp-media/wp-rocket/releases/latest" 2>/dev/null|awk -F'"' '/tag_name/{print $4}')" >> $GITHUB_ENV
           echo "UPSTREAM_RELEASE=$(curl -f -sSL "https://api.github.com/repos/wp-media/wp-rocket/releases/latest" 2>/dev/null|awk -F'"' '/"name":/{print $4}')" >> $GITHUB_ENV
 
       - name: Check upstream release
