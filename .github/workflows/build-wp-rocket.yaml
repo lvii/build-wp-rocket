@@ -80,7 +80,7 @@ jobs:
 
       - name: Generate release tag
         id: tag
-        if: "${{ env.UPLOADLOAD_RELEASE == 'true' }}" && !cancelled()
+        if: "${{ env.UPLOADLOAD_RELEASE == 'true' }}"
         run: |
           echo "::set-output name=release_tag::${UPSTREAM_RELEASE}"
           echo "::set-output name=release_date::$(date +'%F')"
