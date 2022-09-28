@@ -24,7 +24,7 @@ jobs:
 
       - name: Check upstream release
         if: ${{ env.UPSTREAM_RELEASE == '' }}
-        run: echo "__ERROR: FAILED get '${UPSTREAM_RELEASE}' release"; exit 2
+        run: { echo "__ERROR: FAILED get '${UPSTREAM_RELEASE}' release"; exit 2; }
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
