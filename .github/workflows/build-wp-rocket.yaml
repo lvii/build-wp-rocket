@@ -9,9 +9,18 @@ env:
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+
 jobs:
   deploy:
-    name: Deploy Rocket Plugin
+    name: Build WP Rocket Plugin
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
@@ -23,7 +32,7 @@ jobs:
           echo "UPSTREAM_RELEASE=$(curl -f -sSL "https://api.github.com/repos/wp-media/wp-rocket/releases/latest" 2>/dev/null|awk -F'"' '/"name":/{print $4}')" >> $GITHUB_ENV
 
       - name: Check upstream release
-        if: ${{ env.UPSTREAM_RELEASE == '' }}
+        if: ! ${{ env.UPSTREAM_RELEASE }}
         run: { echo "__ERROR: FAILED get '${UPSTREAM_RELEASE}' release"; exit 2; }
 
       - name: Setup PHP
