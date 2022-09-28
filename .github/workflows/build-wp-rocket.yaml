@@ -79,6 +79,7 @@ jobs:
         working-directory: /tmp
 
       - name: Generate release tag
+        id: tag
         run: |
           echo "::set-output name=release_tag::${UPSTREAM_RELEASE}"
           echo "::set-output name=release_date::$(date +'%F')"
