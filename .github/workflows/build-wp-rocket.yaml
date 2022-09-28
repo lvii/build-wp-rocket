@@ -93,7 +93,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASES_TOKEN }}
         with:
-          name: "${{ steps.tag.outputs.release_date }} wp-rocket ${UPSTREAM_RELEASE}"
+          name: "${{ steps.tag.outputs.release_date }} wp-rocket ${{ env.UPSTREAM_RELEASE }}"
           tag_name: ${{ steps.tag.outputs.release_tag }}
           body_path: release.txt
           files: /tmp/wp-rocket-${{ env.UPSTREAM_RELEASE }}.zip
