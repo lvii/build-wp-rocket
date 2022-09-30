@@ -1,4 +1,4 @@
-name: Build Rocket Plugin
+name: Build WP Rocket Plugin
 
 env:
   UPLOAD_RELEASE: true
@@ -51,7 +51,7 @@ jobs:
       - name: Download zip
         if: ${{ env.UPSTREAM_RELEASE }} && !cancelled()
         run: |
-          wget -O base.zip "https://github.com/wp-media/wp-rocket/archive/v${UPSTREAM_RELEASE}.zip"
+          wget -c -t5 -T5 -w5 -nv -O base.zip "https://github.com/wp-media/wp-rocket/archive/v${UPSTREAM_RELEASE}.zip"
           unzip base.zip
           mv wp-rocket-* wp-rocket
         working-directory: /tmp
@@ -74,8 +74,9 @@ jobs:
 
       - name: Zip Folder
         run: |
-          zip -r wp-rocket-${UPSTREAM_RELEASE}.zip wp-rocket
-          find /tmp -type f -iname '*.zip' | xargs ls -lh
+          mv -iv wp-rocket wp-rocket-${UPSTREAM_RELEASE}
+          zip -r wp-rocket-${UPSTREAM_RELEASE}.zip wp-rocket-${UPSTREAM_RELEASE}
+          ls -lhX --time-style=long-iso
         working-directory: /tmp
 
       - name: Generate release tag
